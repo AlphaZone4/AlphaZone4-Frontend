@@ -1,29 +1,42 @@
-import React from "react";
+import React, { Component } from "react"
+import { Route, Link } from "react-router-dom"
 
-import Tile from "./Tile";
+import DatabaseCategory from "./DatabaseCategory"
 
-const Database = ({ match }) => {
-    return (
-        <div className="Database">
-            <h2>Selected {`${match.params.project}`}!</h2>
-                <ul>
-                    <Tile
-                    onClick={()=>console.log("Print To Console.log")}
-                    name="Console.log"
-                    />
-                    <Tile 
-                    name="Back To Database"
-                    to="/database"
-                    />
-                    <Tile
-                    image="https://cdn.alphazone4.com/icons/b/e/1/5/be15a70d-6225-43a7-b681-91bd7c8eae39.png"
-                    name="Custom Image"
-                    to=""
-                    />
-                    <Tile />
-                </ul>
-        </div>
-    )
+class Database extends Component {
+    componentDidMount() {
+        //const { dispatch, selectedSubreddit } = this.props
+        //dispatch(fetchPostsIfNeeded(selectedSubreddit))
+        //console.log(`Heya! I'm here and I'm ${this.props.match.params.project}`);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.project !== prevProps.match.params.project)
+        {
+            //console.log(`Changed project from ${prevProps.match.params.project} to ${this.props.match.params.project}`);
+            // TODO: fetch new things... :)
+            //dispatch(fetchProjectData(project))
+        }
+    }
+
+    render() {
+        const { match } = this.props
+
+        return (
+            <div className="Database">
+                {/* Project-wide page */}
+                <h2>Browsing {`${match.params.project}`}</h2>
+
+                {/* TODO - pull from project data in store */}
+                <Link className='btn btn-default' to={`${match.url}/browse/eu`}>Europe</Link>
+                <Link className='btn btn-default' to={`${match.url}/browse/na`}>America</Link>
+                <Link className='btn btn-default' to={`${match.url}/browse/hk`}>Asia</Link>
+                <Link className='btn btn-default' to={`${match.url}/browse/jp`}>Japan</Link>
+
+                <Route path={`${match.url}/browse/:slug*`} render={(props) => <DatabaseCategory {...props} project={match.params.project} browseRoot={`${match.url}/browse`} />} />
+            </div>
+        )
+    }
 }
 
 export default Database
