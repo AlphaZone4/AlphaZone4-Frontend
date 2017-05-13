@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link, Route } from 'react-router-dom'
 import { Button } from 'react-bootstrap';
 
-import Database from "./Database"
+import ProjectView from "../containers/ProjectView"
 
 const DatabaseHome = ({ projects, match }) => {
     return( <div>
@@ -13,7 +13,7 @@ const DatabaseHome = ({ projects, match }) => {
                 <Button>{project.name}</Button>
             </Link>
         )}
-        <Route path={`${match.url}/:project([a-zA-Z-_]+)`} component={Database} />
+        <Route path={`${match.url}/:project([a-zA-Z-_]+)`} component={ProjectView} />
     </div>
     )
 }

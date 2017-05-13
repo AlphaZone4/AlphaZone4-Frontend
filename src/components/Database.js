@@ -20,20 +20,29 @@ class Database extends Component {
     }
 
     render() {
-        const { match } = this.props
+        const { project, match } = this.props
 
         return (
-            <div className="Database">
-                {/* Project-wide page */}
-                <h2>Browsing {`${match.params.project}`}</h2>
+            <div>
+                { project ? (
+                    <div className="Database">
+                        {/* Project-wide page */}
+                        <h2>Browsing {`${project.name}`}</h2>
 
-                {/* TODO - pull from project data in store */}
-                <Link className='btn btn-default' to={`${match.url}/browse/eu`}>Europe</Link>
-                <Link className='btn btn-default' to={`${match.url}/browse/na`}>America</Link>
-                <Link className='btn btn-default' to={`${match.url}/browse/hk`}>Asia</Link>
-                <Link className='btn btn-default' to={`${match.url}/browse/jp`}>Japan</Link>
+                        {/* TODO - pull from project data in store */}
+                        <Link className='btn btn-default' to={`${match.url}/browse/eu`}>Europe</Link>
+                        <Link className='btn btn-default' to={`${match.url}/browse/na`}>America</Link>
+                        <Link className='btn btn-default' to={`${match.url}/browse/hk`}>Asia</Link>
+                        <Link className='btn btn-default' to={`${match.url}/browse/jp`}>Japan</Link>
 
-                <Route path={`${match.url}/browse/:slug*`} render={(props) => <DatabaseCategory {...props} project={match.params.project} browseRoot={`${match.url}/browse`} />} />
+                        <Route path={`${match.url}/browse/:slug*`} render={(props) => <DatabaseCategory {...props} project={match.params.project} browseRoot={`${match.url}/browse`} />} />
+                    </div>
+                ) : (
+                    <div>
+                        {/* TODO - push to 404 page */}
+                        No such project ID "<b>{match.params.project}</b>"
+                    </div>
+                ) }
             </div>
         )
     }
