@@ -22,7 +22,7 @@ class DatabaseCategory extends Component {
     }
 
     render() {
-        const { browseRoot, data, match } = this.props
+        const { browseRoot, data } = this.props
         return (
             <div>
             {/* Breadcrumb */}
