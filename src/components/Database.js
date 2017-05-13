@@ -29,11 +29,10 @@ class Database extends Component {
                         {/* Project-wide page */}
                         <h2>Browsing {`${project.name}`}</h2>
 
-                        {/* TODO - pull from project data in store */}
-                        <Link className='btn btn-default' to={`${match.url}/browse/eu`}>Europe</Link>
-                        <Link className='btn btn-default' to={`${match.url}/browse/na`}>America</Link>
-                        <Link className='btn btn-default' to={`${match.url}/browse/hk`}>Asia</Link>
-                        <Link className='btn btn-default' to={`${match.url}/browse/jp`}>Japan</Link>
+                        {/* pull from project data in store */}
+                        {project.links.map((link, idx) => 
+                            <Link key={`${match.url}_link_${idx}`} className='btn btn-default' to={`${match.url}/browse/${link.link}`}>{link.name}</Link>
+                        )}
 
                         <Route path={`${match.url}/browse/:slug*`} render={(props) => <DatabaseCategory {...props} project={match.params.project} browseRoot={`${match.url}/browse`} />} />
                     </div>
