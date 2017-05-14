@@ -45,7 +45,7 @@ class App extends Component {
               <Route exact path="/" component={Home}/>
               <Route path="/database" component={DatabaseView}>
               </Route>
-              <Route component={NotFound} />
+              <Route status={404} component={NotFound} />
             </Switch>
           </div>
         </Router>
